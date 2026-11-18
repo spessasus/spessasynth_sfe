@@ -1,0 +1,68 @@
+{
+    "name": "spessasynth_sfe",
+    "version": "0.1.0",
+    "private": true,
+    "description": "The SpessaSynth SFe sound bank format: its specification and its compliance tests",
+    "type": "module",
+    "license": "CC0-1.0",
+    "author": {
+        "name": "spessasus",
+        "url": "https://github.com/spessasus"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/spessasus/spessasynth_sfe.git"
+    },
+    "scripts": {
+        "build": "npm run test:types && npm run build:fast",
+        "build:fast": "tsx src/build.ts",
+        "lint": "eslint",
+        "format": "prettier --list-different --write .",
+        "test:types": "npm run lint && tsc",
+        "prepare": "husky"
+    },
+    "lint-staged": {
+        "*.{ts,tsx}": [
+            "prettier --write",
+            "eslint --cache --fix"
+        ],
+        "*.{json,md,yml,yaml,css}": "prettier --write"
+    },
+    "dependencies": {
+        "spessasynth_core": "^4.4.12"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@fontsource/ibm-plex-mono": "5.3.0",
+        "@fontsource/ibm-plex-sans": "5.3.0",
+        "@fontsource/ibm-plex-serif": "5.3.0",
+        "@types/node": "^26.6.6",
+        "esbuild": "^0.28.2",
+        "eslint": "^10.15.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-unicorn": "^64.0.0",
+        "fflate": "^0.8.3",
+        "globals": "^17.14.0",
+        "hono": "^4.13.19",
+        "husky": "^9.1.7",
+        "libflacjs": "^5.6.0",
+        "lint-staged": "^17.6.1",
+        "marked": "^18.2.1",
+        "pagedjs": "0.4.3",
+        "prettier": "^3.10.1",
+        "puppeteer": "25.16.0",
+        "tsx": "^4.23.15",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.73.0",
+        "wasm-media-encoders": "0.7.0"
+    },
+    "allowScripts": {
+        "esbuild": true,
+        "puppeteer": true,
+        "core-js": false,
+        "es5-ext": false
+    },
+    "engines": {
+        "node": ">=24"
+    }
+}

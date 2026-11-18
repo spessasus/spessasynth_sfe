@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+    - name: "SFe specification"
+      url: "https://spessasus.github.io/spessasynth_sfe/spec.html"
+      about: "Read the specification."
+    - name: "spessasynth_core issues"
+      url: "https://github.com/spessasus/spessasynth_core/issues"
+      about: "Report a problem with spessasynth_core, the reference implementation."

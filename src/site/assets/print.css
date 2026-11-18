@@ -1,0 +1,321 @@
+/* The PDF of the specification, laid out by Paged.js in headless Chromium */
+@import "@fontsource/ibm-plex-serif/latin-400.css";
+@import "@fontsource/ibm-plex-serif/latin-400-italic.css";
+@import "@fontsource/ibm-plex-serif/latin-700.css";
+@import "@fontsource/ibm-plex-serif/latin-700-italic.css";
+@import "@fontsource/ibm-plex-sans/latin-400.css";
+@import "@fontsource/ibm-plex-sans/latin-600.css";
+@import "@fontsource/ibm-plex-sans/latin-700.css";
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/ibm-plex-mono/latin-600.css";
+
+:root {
+    --serif: "IBM Plex Serif", serif;
+    --sans: "IBM Plex Sans", sans-serif;
+    --mono: "IBM Plex Mono", monospace;
+    --ink: #111;
+    --muted: #555;
+    --rule: #999;
+    --light-rule: #ccc;
+    --shade: #f0f0f0;
+    --link: #1a3a9c;
+}
+
+@page {
+    size: A4;
+    margin: 25mm 20mm 22mm;
+
+    /* The text of the left header and footer is set by the page */
+    @top-left {
+        font: 600 8pt var(--sans);
+        color: var(--muted);
+        vertical-align: bottom;
+        padding-bottom: 3mm;
+        border-bottom: 0.5pt solid var(--rule);
+    }
+    @top-right {
+        /* The chapter in effect at the top of the page */
+        content: string(chapter, start);
+        font: 8pt var(--sans);
+        color: var(--muted);
+        vertical-align: bottom;
+        padding-bottom: 3mm;
+        border-bottom: 0.5pt solid var(--rule);
+    }
+    @bottom-left {
+        font: 8pt var(--sans);
+        color: var(--muted);
+        vertical-align: top;
+        padding-top: 3mm;
+        border-top: 0.5pt solid var(--rule);
+    }
+    @bottom-right {
+        content: "Page " counter(page);
+        font: 600 8pt var(--sans);
+        color: var(--muted);
+        vertical-align: top;
+        padding-top: 3mm;
+        border-top: 0.5pt solid var(--rule);
+    }
+}
+
+/* The title page has no header or footer */
+@page title {
+    @top-left {
+        content: none;
+        border: none;
+    }
+    @top-right {
+        content: none;
+        border: none;
+    }
+    @bottom-left {
+        content: none;
+        border: none;
+    }
+    @bottom-right {
+        content: none;
+        border: none;
+    }
+}
+
+html {
+    color: var(--ink);
+    font: 10pt/1.45 var(--serif);
+    hyphens: auto;
+}
+body {
+    margin: 0;
+}
+
+a {
+    color: var(--link);
+    text-decoration: none;
+}
+
+code,
+pre,
+kbd {
+    font-family: var(--mono);
+}
+code {
+    font-size: 0.88em;
+    hyphens: manual;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--sans);
+    font-weight: 700;
+    line-height: 1.25;
+    break-after: avoid;
+    break-inside: avoid;
+    hyphens: manual;
+}
+/* The document title (the h1, printed as .doc-title) names the preamble before chapter 1 in the header */
+.doc-title,
+h2 {
+    string-set: chapter content(text);
+}
+h2 {
+    font-size: 15pt;
+    /* Padding rather than a margin above, because Paged.js only sees a chapter as starting a page when the top of
+       its box is the top of the page */
+    margin: 0 0 8pt;
+    padding-top: 20pt;
+    padding-bottom: 3pt;
+    border-bottom: 1pt solid var(--ink);
+}
+h3 {
+    font-size: 12pt;
+    margin: 16pt 0 6pt;
+}
+h4 {
+    font-size: 10.5pt;
+    margin: 13pt 0 5pt;
+}
+h5 {
+    font-size: 10pt;
+    font-weight: 600;
+    margin: 11pt 0 4pt;
+}
+
+p {
+    margin: 0 0 6pt;
+    orphans: 3;
+    widows: 3;
+}
+ul,
+ol {
+    margin: 0 0 6pt;
+    padding-left: 18pt;
+}
+li {
+    margin: 0 0 2pt;
+}
+li > p {
+    margin: 0;
+}
+
+pre {
+    margin: 4pt 0 8pt;
+    padding: 6pt 8pt;
+    background: var(--shade);
+    border: 0.5pt solid var(--light-rule);
+    /* The widest block of the specification, 95 columns, fits with room to spare. The build fails on a block
+       that does not fit. */
+    font-size: 7.5pt;
+    line-height: 1.35;
+    white-space: pre;
+    break-inside: avoid;
+}
+pre code {
+    font-size: inherit;
+}
+
+/* The admonitions of the source: Note and Status */
+.note {
+    margin: 6pt 0 10pt;
+    padding: 6pt 10pt;
+    border-left: 2.5pt solid var(--muted);
+    background: var(--shade);
+    break-inside: avoid;
+}
+.note.warn {
+    border-left-color: #a00;
+}
+.note p:last-child {
+    margin-bottom: 0;
+}
+
+.table {
+    margin: 4pt 0 10pt;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    line-height: 1.3;
+}
+thead {
+    display: table-header-group;
+}
+tr {
+    break-inside: avoid;
+}
+th,
+td {
+    padding: 2.5pt 4pt;
+    border: 0.5pt solid var(--rule);
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: break-word;
+    hyphens: manual;
+}
+th {
+    font-family: var(--sans);
+    font-weight: 600;
+    background: var(--shade);
+}
+
+/* Title page */
+.title-page {
+    page: title;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+    height: 245mm;
+    font-family: var(--sans);
+}
+.title-page .title {
+    margin: 55mm 0 0;
+    font-size: 36pt;
+    font-weight: 700;
+    line-height: 1.1;
+}
+.title-page .subtitle {
+    margin: 4mm 0 0;
+    font-size: 14pt;
+}
+.title-page .status {
+    margin: 14mm 0 0;
+    padding: 3mm 0;
+    border-top: 1pt solid var(--ink);
+    border-bottom: 1pt solid var(--ink);
+    font-size: 13pt;
+    font-weight: 600;
+}
+.title-page .date {
+    margin: 4mm 0 0;
+    font-size: 11pt;
+    color: var(--muted);
+}
+.title-page .legal {
+    margin-top: auto;
+    font-family: var(--serif);
+    font-size: 9pt;
+    color: var(--muted);
+}
+.title-page .legal p {
+    margin: 0 0 3pt;
+}
+
+/* Table of contents */
+.contents {
+    break-after: page;
+}
+.contents ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.contents li {
+    margin: 0;
+}
+.contents a {
+    display: flex;
+    align-items: baseline;
+    color: var(--ink);
+}
+.contents a::after {
+    content: target-counter(attr(href), page);
+    margin-left: 4pt;
+    font-variant-numeric: tabular-nums;
+}
+.contents .leader {
+    flex: 1;
+    margin-left: 4pt;
+    border-bottom: 1pt dotted var(--rule);
+}
+.contents .depth-2 {
+    margin-top: 5pt;
+    font-family: var(--sans);
+    font-weight: 600;
+}
+.contents .depth-3 {
+    padding-left: 14pt;
+}
+.contents .depth-4 {
+    padding-left: 32pt;
+    font-size: 9pt;
+}
+.contents .num {
+    display: inline-block;
+    min-width: 2.2em;
+}
+.contents .depth-3 .num {
+    min-width: 2.6em;
+}
+.contents .depth-4 .num {
+    min-width: 3.4em;
+}
+
+/* The title of the source, kept at the top of the text */
+.doc-title {
+    font: 700 20pt/1.2 var(--sans);
+    margin: 0 0 10pt;
+}

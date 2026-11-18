@@ -1,0 +1,102 @@
+name: Build and publish
+
+on:
+    push:
+        branches: ["master"]
+
+    workflow_dispatch:
+
+concurrency:
+    group: "publish"
+    # Runs queue, so two runs never change the release at the same time
+    cancel-in-progress: false
+
+jobs:
+    build:
+        # A manual run from another branch must not publish
+        if: github.ref == 'refs/heads/master'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+              with:
+                  # The whole history, so the PDF is dated by the last commit of the specification
+                  fetch-depth: 0
+
+            - name: Setup Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 24
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Lint, type check, build and verify
+              run: npm run build
+
+            - name: Upload the build
+              uses: actions/upload-pages-artifact@v5
+              with:
+                  path: "./dist"
+
+    release:
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+
+            - name: Download the build
+              uses: actions/download-artifact@v5
+              with:
+                  name: github-pages
+                  path: artifact
+
+            - name: Unpack the build
+              run: mkdir dist && tar -xf artifact/artifact.tar -C dist
+
+            # One rolling release: the tag follows master and the assets are replaced
+            - name: Replace the assets of the latest release
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  files="dist/*.sf4 dist/*.mid dist/*.flac dist/*.zip dist/TESTS.md dist/sfe-format.pdf"
+                  if gh release view latest > /dev/null 2>&1; then
+                      # --clobber replaces each file in place. A run that stops in the middle can leave a file
+                      # missing until the next run, which is accepted for a rolling release.
+                      gh release upload latest $files --clobber
+                  else
+                      # A new release gets its files when it is made, so it never exists empty
+                      gh release create latest $files --target "$GITHUB_SHA" --title "Latest build" --notes "The files built from the latest commit on master. See TESTS.md for how to run them and what every test checks, and sfe-format.pdf for the specification."
+                  fi
+                  # Remove the assets of files that are gone
+                  for asset in $(gh release view latest --json assets --jq '.assets[].name'); do
+                      if [ ! -f "dist/$asset" ]; then
+                          gh release delete-asset latest "$asset" --yes
+                      fi
+                  done
+                  # The tag follows the commit of the files
+                  git tag -f latest
+                  git push -f origin latest
+
+    pages:
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+            pages: write
+            id-token: write
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
+            - name: Setup Pages
+              uses: actions/configure-pages@v6
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v5

@@ -1,0 +1,31 @@
+name: Test request
+description: Suggest a test for a rule of the SFe specification.
+labels: ["enhancement"]
+body:
+    - type: input
+      id: section
+      attributes:
+          label: Specification section
+          description: "The section of the SFe specification that the test covers, for example 7.1.1 #66."
+      validations:
+          required: true
+    - type: textarea
+      id: plays
+      attributes:
+          label: What it plays
+          description: The bank and the notes or messages of the test.
+      validations:
+          required: true
+    - type: textarea
+      id: pass
+      attributes:
+          label: Pass criterion
+          description: What a compliant synthesizer does, in a way that can be checked without the reference render.
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: Additional info
+          description: Why the existing tests miss it, and anything else.
+      validations:
+          required: false

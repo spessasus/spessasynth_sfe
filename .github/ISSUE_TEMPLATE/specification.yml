@@ -1,0 +1,25 @@
+name: Specification issue
+description: Report an unclear, contradicting or missing rule in the SFe specification.
+labels: ["specification"]
+body:
+    - type: input
+      id: section
+      attributes:
+          label: Specification section
+          description: "The section the problem is in, for example 7.2.1."
+      validations:
+          required: true
+    - type: textarea
+      id: problem
+      attributes:
+          label: The problem
+          description: What the text says, and why it is unclear, wrong or incomplete.
+      validations:
+          required: true
+    - type: textarea
+      id: proposal
+      attributes:
+          label: Proposed wording
+          description: How the text could read instead, if you have an idea.
+      validations:
+          required: false
