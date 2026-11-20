@@ -52,7 +52,7 @@
         "prettier": "^3.10.1",
         "puppeteer": "25.16.0",
         "tsx": "^4.23.15",
-        "typescript": "^6.0.3",
+        "typescript": "^7.0.2",
         "typescript-eslint": "^8.73.0",
         "wasm-media-encoders": "0.7.0"
     },
