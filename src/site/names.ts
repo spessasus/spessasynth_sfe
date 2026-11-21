@@ -1,6 +1,5 @@
 export const ZIP_NAME = "sfe4-spec-test.zip";
 export const TESTS_NAME = "TESTS.md";
-export const SPEC_PDF_NAME = "sfe-format.pdf";
 
 /**
  * The name and the stage of the specification, as the PDF shows them.
@@ -8,6 +7,11 @@ export const SPEC_PDF_NAME = "sfe-format.pdf";
 export const SPEC_FORMAT = "SpessaSynth SFe 4.0";
 export const SPEC_STAGE = "Release Candidate";
 export const SPEC_TITLE = `${SPEC_FORMAT} ${SPEC_STAGE}`;
+
+/**
+ * The PDF is named after the version and the stage above, so change it with them.
+ */
+export const SPEC_PDF_NAME = "spessasynth-sfe-specification-4-0-rc.pdf";
 
 /**
  * The pages of the site.

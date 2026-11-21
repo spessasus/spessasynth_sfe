@@ -7,7 +7,8 @@ import {
     LOGO_URL,
     PAGES,
     type PageName,
-    REPOSITORY_URL
+    REPOSITORY_URL,
+    SPEC_PDF_NAME
 } from "../names";
 import { MenuIcon, MoonIcon, SunIcon } from "./icons";
 
@@ -30,6 +31,13 @@ function PageLink(props: { page: PageName; current: PageName; label: string }) {
             {props.label}
         </a>
     );
+}
+
+/**
+ * A plain link to the PDF of the specification, so the browser opens it in its own viewer.
+ */
+function PDFLink() {
+    return <a href={SPEC_PDF_NAME}>PDF Specification</a>;
 }
 
 /**
@@ -69,11 +77,14 @@ export function Layout(props: {
                         </a>
                         <nav class="links" aria-label="Pages">
                             {NAV.map(([page, label]) => (
-                                <PageLink
-                                    page={page}
-                                    current={props.page}
-                                    label={label}
-                                />
+                                <>
+                                    <PageLink
+                                        page={page}
+                                        current={props.page}
+                                        label={label}
+                                    />
+                                    {page === "spec" && <PDFLink />}
+                                </>
                             ))}
                             <a href={CORE_URL}>spessasynth_core</a>
                         </nav>
@@ -103,13 +114,20 @@ export function Layout(props: {
                         <nav class="pages" aria-label="Pages">
                             <ul>
                                 {DRAWER.map(([page, label]) => (
-                                    <li>
-                                        <PageLink
-                                            page={page}
-                                            current={props.page}
-                                            label={label}
-                                        />
-                                    </li>
+                                    <>
+                                        <li>
+                                            <PageLink
+                                                page={page}
+                                                current={props.page}
+                                                label={label}
+                                            />
+                                        </li>
+                                        {page === "spec" && (
+                                            <li>
+                                                <PDFLink />
+                                            </li>
+                                        )}
+                                    </>
                                 ))}
                             </ul>
                         </nav>
@@ -120,8 +138,8 @@ export function Layout(props: {
                     </main>
                 </div>
                 <footer>
-                    SpessaSynth SFe, a sound bank format that extends SoundFont 2.{" "}
-                    <a href={REPOSITORY_URL}>Source</a>
+                    SpessaSynth SFe, a sound bank format that extends SoundFont
+                    2. <a href={REPOSITORY_URL}>Source</a>
                 </footer>
                 <script>{raw(assets.script)}</script>
             </body>

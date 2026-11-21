@@ -52,7 +52,7 @@ jobs:
               uses: actions/checkout@v7
 
             - name: Download the build
-              uses: actions/download-artifact@v5
+              uses: actions/download-artifact@v8
               with:
                   name: github-pages
                   path: artifact
@@ -65,14 +65,14 @@ jobs:
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  files="dist/*.sf4 dist/*.mid dist/*.flac dist/*.zip dist/TESTS.md dist/sfe-format.pdf"
+                  files="dist/*.sf4 dist/*.mid dist/*.flac dist/*.zip dist/TESTS.md dist/*.pdf"
                   if gh release view latest > /dev/null 2>&1; then
                       # --clobber replaces each file in place. A run that stops in the middle can leave a file
                       # missing until the next run, which is accepted for a rolling release.
                       gh release upload latest $files --clobber
                   else
                       # A new release gets its files when it is made, so it never exists empty
-                      gh release create latest $files --target "$GITHUB_SHA" --title "Latest build" --notes "The files built from the latest commit on master. See TESTS.md for how to run them and what every test checks, and sfe-format.pdf for the specification."
+                      gh release create latest $files --target "$GITHUB_SHA" --title "Latest build" --notes "The files built from the latest commit on master. See TESTS.md for how to run them and what every test checks, and the PDF for the specification."
                   fi
                   # Remove the assets of files that are gone
                   for asset in $(gh release view latest --json assets --jq '.assets[].name'); do

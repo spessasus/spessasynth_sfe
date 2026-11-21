@@ -33,7 +33,7 @@ implement it, extend it or copy it, without asking and without attribution.
 ## Specification
 
 [Read it online](https://spessasus.github.io/spessasynth_sfe/spec.html) or download it as a
-[PDF](https://spessasus.github.io/spessasynth_sfe/sfe-format.pdf). The source is
+[PDF](https://spessasus.github.io/spessasynth_sfe/spessasynth-sfe-specification-4-0-rc.pdf). The source is
 [`spec/sfe-format.md`](spec/sfe-format.md), a single Markdown file, and the build generates the page and the PDF from
 it.
 
