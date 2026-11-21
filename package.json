@@ -14,11 +14,12 @@
         "url": "git+https://github.com/spessasus/spessasynth_sfe.git"
     },
     "scripts": {
-        "build": "npm run test:types && npm run build:fast",
+        "build": "npm run check && npm run build:fast",
         "build:fast": "tsx src/build.ts",
-        "lint": "eslint",
+        "check": "npm run lint && node node_modules/typescript7/bin/tsc",
         "format": "prettier --list-different --write .",
-        "test:types": "npm run lint && tsc",
+        "format:check": "prettier --check .",
+        "lint": "eslint",
         "prepare": "husky"
     },
     "lint-staged": {
@@ -54,6 +55,7 @@
         "tsx": "^4.23.15",
         "typescript": "^6.0.3",
         "typescript-eslint": "^8.73.0",
+        "typescript7": "npm:typescript@^7.0.2",
         "wasm-media-encoders": "0.7.0"
     },
     "allowScripts": {

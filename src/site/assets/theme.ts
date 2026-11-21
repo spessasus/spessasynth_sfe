@@ -49,9 +49,9 @@ for (const a of document.querySelectorAll(".sidebar a"))
     a.addEventListener("click", () => toggleMenu(false));
 
 const links = new Map(
-    [...document.querySelectorAll<HTMLAnchorElement>(".sidebar a[href^='#']")].map(
-        (a) => [a.getAttribute("href")?.slice(1) ?? "", a]
-    )
+    [
+        ...document.querySelectorAll<HTMLAnchorElement>(".sidebar a[href^='#']")
+    ].map((a) => [a.getAttribute("href")?.slice(1) ?? "", a])
 );
 
 // The entry of the last heading above the upper third of the window is the one in view
