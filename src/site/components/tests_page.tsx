@@ -185,7 +185,8 @@ export function TestsPage(props: {
             </p>
             <a class="download" href={ZIP_NAME} download>
                 <span>
-                    Download everything <span class="nowrap">({ZIP_NAME})</span>
+                    Download everything{" "}
+                    <span class="file-name">({ZIP_NAME})</span>
                 </span>
             </a>
             {props.groups.map((group) => (

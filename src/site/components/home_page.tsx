@@ -78,7 +78,7 @@ export function HomePage(props: { assets: Assets }) {
                     <a class="download" href={SPEC_PDF_NAME} download>
                         <span>
                             Download the PDF{" "}
-                            <span class="nowrap">({SPEC_PDF_NAME})</span>
+                            <span class="file-name">({SPEC_PDF_NAME})</span>
                         </span>
                     </a>
                 </section>
@@ -94,7 +94,7 @@ export function HomePage(props: { assets: Assets }) {
                     <a class="download" href={ZIP_NAME} download>
                         <span>
                             Download the tests{" "}
-                            <span class="nowrap">({ZIP_NAME})</span>
+                            <span class="file-name">({ZIP_NAME})</span>
                         </span>
                     </a>
                 </section>
